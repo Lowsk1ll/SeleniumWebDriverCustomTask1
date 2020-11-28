@@ -25,13 +25,14 @@ public class MainPage {
     @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div/span/a")
     WebElement Value;
 
-    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[4]/button")
+    @FindBy(xpath = "//div/button[@data-role='save']")
     WebElement SaveButton;
 
-    @FindBy(xpath = "/html/body/div[1]/div[4]/div/div[3]/form/div[2]/input")
+    @FindBy(xpath = "//div/input[@name='SearchText']")
+
     WebElement SearchString;
 
-    @FindBy(xpath = "/html/body/div[1]/div[4]/div/div[3]/form/div[1]/input")
+    @FindBy(xpath = "//div/input[@type='submit']")
     WebElement FindButton;
 
 

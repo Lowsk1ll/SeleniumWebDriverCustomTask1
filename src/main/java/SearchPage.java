@@ -9,7 +9,7 @@ public class SearchPage {
     @FindBy(xpath = "/html/body/iframe[2]")
     WebElement kupon;
 
-    @FindBy(xpath = "/html/body/div[7]/div[2]/div/a")
+    @FindBy(xpath = "//div/a[@class='next-dialog-close']")
     WebElement closeKupon;
 
     @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/div[1]/div/div[2]/span/span")
@@ -24,6 +24,7 @@ public class SearchPage {
     public SearchPage(WebDriver driver){
         PageFactory.initElements(driver,this);
     }
+
     public void skipKupon(){
         closeKupon.click();
 
