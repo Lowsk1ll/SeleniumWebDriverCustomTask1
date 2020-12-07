@@ -1,3 +1,4 @@
+import io.qameta.allure.AllureResultsWriter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,7 +10,8 @@ public class GeneralTest {
     void setUp(){
         driverWrapper.init();
     }
-    @Test
+
+    @Test(invocationCount = 5)
     void Test() throws InterruptedException {
         MainPage mainPage = new MainPage(driverWrapper.driver);
         SearchPage searchPage = new SearchPage(driverWrapper.driver);
@@ -20,6 +22,7 @@ public class GeneralTest {
         System.out.println(searchPage.getResults());
         searchPage.setUpFilters(driverWrapper.driver);
         System.out.println(searchPage.getResults());
+
     }
     @AfterMethod
     void end(){

@@ -8,7 +8,7 @@ public class BasicTests {
         driverWrapper.init();
     }
 
-    @Test   (description = "заходит на сайт")
+    @Test  (description = "заходит на сайт")
     void Test1(){
         MainPage mainPage =new MainPage(driverWrapper.driver);
         mainPage.skip(driverWrapper.driver);

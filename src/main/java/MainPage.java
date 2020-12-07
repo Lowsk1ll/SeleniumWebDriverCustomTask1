@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -41,13 +42,13 @@ public class MainPage {
         PageFactory.initElements(driver, this);
 
     }
-
+    @Step("Закрытие первого купона")
     public void skip(WebDriver driver) {
         driver.switchTo().frame(driver.findElement(By.xpath("/html/body/iframe[1]")));
         skipKupon.click();
         driver.switchTo().defaultContent();
     }
-
+    @Step("Настройка языка,валюты,региона")
     public void setUp(WebDriver driver) throws InterruptedException {
         CountryLanguageValue.click();
         String country = Country.getText();
@@ -71,6 +72,7 @@ public class MainPage {
         }
         SaveButton.click();
     }
+    @Step
     public void Find(WebDriver driver,String findWord){
         WebDriverWait wait = new WebDriverWait(driver,5);
         wait.until(ExpectedConditions.invisibilityOf(SaveButton));

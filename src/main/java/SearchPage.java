@@ -1,3 +1,5 @@
+
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,10 +27,12 @@ public class SearchPage {
         PageFactory.initElements(driver,this);
     }
 
+    @Step("Закрытие купона после поиска")
     public void skipKupon(){
         closeKupon.click();
 
     }
+    @Step("Сортировка")
     public void setUpFilters(WebDriver driver) throws InterruptedException {
         while (SALE.isEnabled()!=true){
             driver.navigate().refresh();
@@ -44,7 +48,7 @@ public class SearchPage {
         }
 
     }
-
+    @Step("Результаты в консоль")
     public String getResults(){
         String results = result.getText();
         if(SALE.getAttribute("aria-checked").equals("true")==true){
