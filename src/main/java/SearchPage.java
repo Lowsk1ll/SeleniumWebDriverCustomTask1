@@ -23,8 +23,8 @@ public class SearchPage {
     @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/div[2]/div[2]/div[1]/span/span[4]")
     WebElement sortByCosts;
 
-    public SearchPage(WebDriver driver){
-        PageFactory.initElements(driver,this);
+    public SearchPage(){
+        PageFactory.initElements(DriverWrapper.driver,this);
     }
 
     @Step("Закрытие купона после поиска")
@@ -33,17 +33,17 @@ public class SearchPage {
 
     }
     @Step("Сортировка")
-    public void setUpFilters(WebDriver driver) throws InterruptedException {
+    public void setUpFilters()  {
         while (SALE.isEnabled()!=true){
-            driver.navigate().refresh();
+            DriverWrapper.driver.navigate().refresh();
         }
         if(SALE.getAttribute("aria-checked").equals("false")==true){
             SALE.click();
-            new WebDriverWait(driver,10).until(ExpectedConditions.elementToBeClickable(sortByCosts));
+            new WebDriverWait(DriverWrapper.driver,10).until(ExpectedConditions.elementToBeClickable(sortByCosts));
         }
         while (sortByCosts.getAttribute("class").equals("sort-item")==true || sortByCosts.getAttribute("ae_object_value").equals("price(highest)")!=true){
             sortByCosts.click();
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,10);
             wait.until(ExpectedConditions.attributeToBe(sortByCosts,"ae_object_value","price(highest)"));
         }
 

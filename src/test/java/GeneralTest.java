@@ -11,16 +11,16 @@ public class GeneralTest {
         driverWrapper.init();
     }
 
-    @Test(invocationCount = 5)
-    void Test() throws InterruptedException {
-        MainPage mainPage = new MainPage(driverWrapper.driver);
-        SearchPage searchPage = new SearchPage(driverWrapper.driver);
-        mainPage.skip(driverWrapper.driver);
-        mainPage.setUp(driverWrapper.driver);
-        mainPage.Find(driverWrapper.driver,"клавиатура");
+    @Test(invocationCount = 1)
+    void Test()  {
+        MainPage mainPage = new MainPage();
+        SearchPage searchPage = new SearchPage();
+        mainPage.skip();
+        mainPage.setUp();
+        mainPage.Find("клавиатура");
         searchPage.skipKupon();
         System.out.println(searchPage.getResults());
-        searchPage.setUpFilters(driverWrapper.driver);
+        searchPage.setUpFilters();
         System.out.println(searchPage.getResults());
 
     }

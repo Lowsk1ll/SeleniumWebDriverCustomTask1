@@ -10,22 +10,22 @@ public class BasicTests {
 
     @Test  (description = "заходит на сайт")
     void Test1(){
-        MainPage mainPage =new MainPage(driverWrapper.driver);
-        mainPage.skip(driverWrapper.driver);
+        MainPage mainPage =new MainPage();
+        mainPage.skip();
     }
 
     @Test   (description = "заходит на сайт и закрывает всплывающие окно")
-    void Test2() throws InterruptedException {
-        MainPage mainPage =new MainPage(driverWrapper.driver);
-        mainPage.skip(driverWrapper.driver);
-        mainPage.setUp(driverWrapper.driver);
+    void Test2() {
+        MainPage mainPage =new MainPage();
+        mainPage.skip();
+        mainPage.setUp();
     }
     @Test   (description = "заходит на сайт закрывает всплывающие окно и совершает поиск")
-    void Test3() throws InterruptedException {
-        MainPage mainPage = new MainPage(driverWrapper.driver);
-        mainPage.skip(driverWrapper.driver);
-        mainPage.setUp(driverWrapper.driver);
-        mainPage.Find(driverWrapper.driver,"клавиатура");
+    void Test3(){
+        MainPage mainPage = new MainPage();
+        mainPage.skip();
+        mainPage.setUp();
+        mainPage.Find("клавиатура");
 
     }
 

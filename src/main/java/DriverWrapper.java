@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class DriverWrapper {
-    WebDriver driver;
+    static WebDriver driver;
     String site = "https://aliexpress.ru/";
     public DriverWrapper() {
         System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\src\\main\\resources\\chromedriver.exe");

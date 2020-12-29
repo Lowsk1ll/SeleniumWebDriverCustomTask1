@@ -38,43 +38,42 @@ public class MainPage {
 
 
 
-    public MainPage(WebDriver driver) {
-        PageFactory.initElements(driver, this);
-
+    public MainPage() {
+                PageFactory.initElements(DriverWrapper.driver,this);
     }
     @Step("Закрытие первого купона")
-    public void skip(WebDriver driver) {
-        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/iframe[1]")));
+    public void skip() {
+        DriverWrapper.driver.switchTo().frame(DriverWrapper.driver.findElement(By.xpath("/html/body/iframe[1]")));
         skipKupon.click();
-        driver.switchTo().defaultContent();
+        DriverWrapper.driver.switchTo().defaultContent();
     }
     @Step("Настройка языка,валюты,региона")
-    public void setUp(WebDriver driver) throws InterruptedException {
+    public void setUp()  {
         CountryLanguageValue.click();
         String country = Country.getText();
         String needCountry = "United States";
         String needLanguage = "Русский";
         String needValue = "UAH ( Ukraine Hryvnia )";
         if (country.equals(needCountry) == false) {
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/a[1]")).click();
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/div[1]/ul/li[224]")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/a[1]")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/div[1]/ul/li[224]")).click();
         }
         String language = Language.getText();
         if (language.equals(needLanguage) == false) {
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div")).click();
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div/ul/li[2]")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div/ul/li[2]")).click();
         }
 
         String value = Value.getText();
         if (value.equals(needValue) == false) {
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div")).click();
-            driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div/ul/li[83]")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div")).click();
+            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div/ul/li[83]")).click();
         }
         SaveButton.click();
     }
     @Step
-    public void Find(WebDriver driver,String findWord){
-        WebDriverWait wait = new WebDriverWait(driver,5);
+    public void Find(String findWord){
+        WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
         wait.until(ExpectedConditions.invisibilityOf(SaveButton));
         SearchString.sendKeys(findWord);
         FindButton.click();
