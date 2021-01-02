@@ -8,9 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage {
-    @FindBy(xpath = "/html/body/iframe[2]")
-    WebElement kupon;
-
     @FindBy(xpath = "//div/a[@class='next-dialog-close']")
     WebElement closeKupon;
 
@@ -34,14 +31,14 @@ public class SearchPage {
     }
     @Step("Сортировка")
     public void setUpFilters()  {
-        while (SALE.isEnabled()!=true){
+        while (!SALE.isEnabled()){
             DriverWrapper.driver.navigate().refresh();
         }
-        if(SALE.getAttribute("aria-checked").equals("false")==true){
+        if(SALE.getAttribute("aria-checked").equals("false")){
             SALE.click();
             new WebDriverWait(DriverWrapper.driver,10).until(ExpectedConditions.elementToBeClickable(sortByCosts));
         }
-        while (sortByCosts.getAttribute("class").equals("sort-item")==true || sortByCosts.getAttribute("ae_object_value").equals("price(highest)")!=true){
+        while (sortByCosts.getAttribute("class").equals("sort-item") || !sortByCosts.getAttribute("ae_object_value").equals("price(highest)")){
             sortByCosts.click();
             WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,10);
             wait.until(ExpectedConditions.attributeToBe(sortByCosts,"ae_object_value","price(highest)"));
@@ -51,10 +48,10 @@ public class SearchPage {
     @Step("Результаты в консоль")
     public String getResults(){
         String results = result.getText();
-        if(SALE.getAttribute("aria-checked").equals("true")==true){
+        if(SALE.getAttribute("aria-checked").equals("true")){
             results += ", по акции";
         }
-        if(sortByCosts.getAttribute("class").equals("sort-item active")==true){
+        if(sortByCosts.getAttribute("class").equals("sort-item active")){
             results += ", цены указаны по возрастанию.";
         }
         return results;
