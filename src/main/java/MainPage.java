@@ -1,18 +1,14 @@
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
 public class MainPage {
     @FindBy(xpath = "//*[@id=\"6216442440\"]/div/div/img")
-    WebElement skipKupon;
+    WebElement SkipKupon;
 
     @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div")
     WebElement CountryLanguageValue;
@@ -39,12 +35,12 @@ public class MainPage {
 
 
     public MainPage() {
-                PageFactory.initElements(DriverWrapper.driver,this);
+        PageFactory.initElements(DriverWrapper.driver,this);
     }
     @Step("Закрытие первого купона")
     public void skip() {
         DriverWrapper.driver.switchTo().frame(DriverWrapper.driver.findElement(By.xpath("/html/body/iframe[1]")));
-        skipKupon.click();
+        SkipKupon.click();
         DriverWrapper.driver.switchTo().defaultContent();
     }
     @Step("Настройка языка,валюты,региона")

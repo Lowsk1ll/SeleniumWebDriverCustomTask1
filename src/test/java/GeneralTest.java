@@ -11,7 +11,7 @@ public class GeneralTest {
         driverWrapper.init();
     }
 
-    @Test(invocationCount = 1)
+    @Test(invocationCount = 2)
     void Test()  {
         MainPage mainPage = new MainPage();
         SearchPage searchPage = new SearchPage();
