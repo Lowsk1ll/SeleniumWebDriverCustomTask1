@@ -1,4 +1,3 @@
-import io.qameta.allure.AllureResultsWriter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,24 +7,24 @@ public class GeneralTest {
 
     @BeforeMethod
     void setUp(){
-        driverWrapper.init();
+        driverWrapper.Init();
     }
 
     @Test(invocationCount = 2)
     void Test()  {
         MainPage mainPage = new MainPage();
         SearchPage searchPage = new SearchPage();
-        mainPage.skip();
-        mainPage.setUp();
+        mainPage.Skip();
+        mainPage.SetUp();
         mainPage.Find("клавиатура");
-        searchPage.skipKupon();
-        System.out.println(searchPage.getResults());
+        searchPage.SkipKupon();
+        System.out.println(searchPage.GetResults());
         searchPage.setUpFilters();
-        System.out.println(searchPage.getResults());
+        System.out.println(searchPage.GetResults());
 
     }
     @AfterMethod
     void end(){
-        driverWrapper.close();
+        driverWrapper.Close();
     }
 }

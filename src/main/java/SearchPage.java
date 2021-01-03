@@ -24,7 +24,7 @@ public class SearchPage {
     }
 
     @Step("Закрытие купона после поиска")
-    public void skipKupon(){
+    public void SkipKupon(){
         CloseKupon.click();
 
     }
@@ -45,7 +45,7 @@ public class SearchPage {
 
     }
     @Step("Результаты в консоль")
-    public String getResults(){
+    public String GetResults(){
         String results = Result.getText();
         if(Sale.getAttribute("aria-checked").equals("true")){
             results += ", по акции";

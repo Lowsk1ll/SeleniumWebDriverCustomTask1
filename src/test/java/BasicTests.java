@@ -5,32 +5,32 @@ public class BasicTests {
 
     @BeforeMethod
     void setUp(){
-        driverWrapper.init();
+        driverWrapper.Init();
     }
 
     @Test  (description = "заходит на сайт")
     void Test1(){
         MainPage mainPage =new MainPage();
-        mainPage.skip();
+        mainPage.Skip();
     }
 
     @Test   (description = "заходит на сайт и закрывает всплывающие окно")
     void Test2() {
         MainPage mainPage =new MainPage();
-        mainPage.skip();
-        mainPage.setUp();
+        mainPage.Skip();
+        mainPage.SetUp();
     }
     @Test   (description = "заходит на сайт закрывает всплывающие окно и совершает поиск")
     void Test3(){
         MainPage mainPage = new MainPage();
-        mainPage.skip();
-        mainPage.setUp();
+        mainPage.Skip();
+        mainPage.SetUp();
         mainPage.Find("клавиатура");
 
     }
 
     @AfterMethod
     void end(){
-        driverWrapper.close();
+        driverWrapper.Close();
     }
 }

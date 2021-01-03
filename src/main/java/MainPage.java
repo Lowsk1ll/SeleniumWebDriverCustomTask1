@@ -38,13 +38,13 @@ public class MainPage {
         PageFactory.initElements(DriverWrapper.driver,this);
     }
     @Step("Закрытие первого купона")
-    public void skip() {
+    public void Skip() {
         DriverWrapper.driver.switchTo().frame(DriverWrapper.driver.findElement(By.xpath("/html/body/iframe[1]")));
         SkipKupon.click();
         DriverWrapper.driver.switchTo().defaultContent();
     }
     @Step("Настройка языка,валюты,региона")
-    public void setUp()  {
+    public void SetUp()  {
         CountryLanguageValue.click();
         String country = Country.getText();
         String needCountry = "United States";

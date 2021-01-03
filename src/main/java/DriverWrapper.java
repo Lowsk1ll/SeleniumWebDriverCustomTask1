@@ -19,14 +19,14 @@ public class DriverWrapper {
 
     }
     @Step("Запуск браузера")
-    public void init() {
+    public void Init() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(4,TimeUnit.SECONDS);
         driver.get(site);
         driver.manage().window().maximize();
     }
     @Step("Закрытие браузера")
-    public void close() {
+    public void Close() {
         driver.quit();
     }
 
