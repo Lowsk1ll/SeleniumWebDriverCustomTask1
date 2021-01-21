@@ -7,26 +7,34 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
-    @FindBy(xpath = "//*[@id=\"6216442440\"]/div/div/img")
-    WebElement SkipKupon;
+    @FindBy(xpath = "//img[@class='_24EHh']")
+    WebElement closeNotificationSuggestions;
 
-    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div")
-    WebElement CountryLanguageValue;
+    @FindBy(xpath = "//a[@class='switcher-info notranslate']")
+    WebElement countryLanguageCurrency;
 
-    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/a[1]/span/span")
-    WebElement Country;
+    @FindBy(xpath = "//div[@data-role='switch-country']/a")
+    WebElement switchCountry;
 
-    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div/span/a")
-    WebElement Language;
+    @FindBy(xpath = "//span[@class='shipping-text']")
+    WebElement country;
 
-    @FindBy(xpath = "/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div/span/a")
-    WebElement Value;
+    @FindBy(xpath = "//div[@data-role='language-container']")
+    WebElement switchLanguage;
+
+    @FindBy(xpath = "//span[@data-role='language-input']/a")
+    WebElement language;
+
+    @FindBy(xpath = "//div[@data-role='switch-currency']/span")
+    WebElement switchCurrency;
+
+    @FindBy(xpath = "//div[@data-role='switch-currency']/span/a")
+    WebElement currency;
 
     @FindBy(xpath = "//div/button[@data-role='save']")
-    WebElement SaveButton;
+    WebElement saveButton;
 
     @FindBy(xpath = "//div/input[@name='SearchText']")
-
     WebElement SearchString;
 
     @FindBy(xpath = "//div/input[@type='submit']")
@@ -37,40 +45,51 @@ public class MainPage {
     public MainPage() {
         PageFactory.initElements(DriverWrapper.driver,this);
     }
-    @Step("Закрытие первого купона")
-    public void Skip() {
-        DriverWrapper.driver.switchTo().frame(DriverWrapper.driver.findElement(By.xpath("/html/body/iframe[1]")));
-        SkipKupon.click();
-        DriverWrapper.driver.switchTo().defaultContent();
+    @Step("Закрытие предложения об уведомлениях")
+    public void closeNotifiacationSuggestions(){
+        WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
+        wait.until(ExpectedConditions.elementToBeClickable(closeNotificationSuggestions));
+        closeNotificationSuggestions.click();
     }
     @Step("Настройка языка,валюты,региона")
-    public void SetUp()  {
-        CountryLanguageValue.click();
-        String country = Country.getText();
+    public void changeCountryLanguageCurrencySettings()  {
+        countryLanguageCurrency.click();
         String needCountry = "United States";
         String needLanguage = "Русский";
-        String needValue = "UAH ( Ukraine Hryvnia )";
-        if (country.equals(needCountry) == false) {
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/a[1]")).click();
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[1]/div/div[1]/ul/li[224]")).click();
+        String needCurrency = "UAH";
+        WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
+        String country = this.country.getText();
+        if (!country.equals(needCountry)) {
+            wait.until(ExpectedConditions.elementToBeClickable(switchCountry));
+            switchCountry.click();
+
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='address-select']/ul/li[@data-name='"+needCountry+"']")));
+            DriverWrapper.driver.findElement(By.xpath("//div[@class='address-select']/ul/li[@data-name='"+needCountry+"']")).click();
         }
-        String language = Language.getText();
-        if (language.equals(needLanguage) == false) {
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div")).click();
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[2]/div/ul/li[2]")).click();
+        String language = this.language.getText();
+        if (!language.equals(needLanguage)) {
+            wait.until(ExpectedConditions.elementToBeClickable(switchLanguage));
+            switchLanguage.click();
+
+            wait.until(ExpectedConditions.attributeToBe(switchLanguage,"class","switcher-currency-c language-selector hover"));
+            DriverWrapper.driver.findElement(By.xpath("//div[@data-role='language-container']/ul/li/a[text()='"+needLanguage+"']")).click();
         }
 
-        String value = Value.getText();
-        if (value.equals(needValue) == false) {
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div")).click();
-            DriverWrapper.driver.findElement(By.xpath("/html/body/div[1]/div[3]/div/div/div[3]/div/div/div/div[3]/div/ul/li[83]")).click();
+        String currency = this.currency.getText();
+        if (!currency.contains(needCurrency)) {
+            wait.until(ExpectedConditions.elementToBeClickable(switchCurrency));
+            switchCurrency.click();
+
+            wait.until(ExpectedConditions.attributeToBe(switchCurrency,"class","select-item chang-border"));
+            DriverWrapper.driver.findElement(By.xpath("//div[@data-role='switch-currency']/ul/li/a[@data-currency='"+needCurrency+"']")).click();
         }
-        SaveButton.click();
+        wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+        saveButton.click();
     }
     @Step
     public void Find(String findWord){
         WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
-        wait.until(ExpectedConditions.invisibilityOf(SaveButton));
+        wait.until(ExpectedConditions.invisibilityOf(saveButton));
         SearchString.sendKeys(findWord);
         FindButton.click();
     }

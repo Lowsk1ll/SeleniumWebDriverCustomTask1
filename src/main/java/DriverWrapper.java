@@ -21,7 +21,8 @@ public class DriverWrapper {
     @Step("Запуск браузера")
     public void Init() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(4,TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+        //driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
         driver.get(site);
         driver.manage().window().maximize();
     }

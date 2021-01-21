@@ -7,50 +7,54 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SearchPage {
-    @FindBy(xpath = "//div/a[@class='next-dialog-close']")
-    WebElement CloseKupon;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/div[1]/div/div[2]/span/span")
-    WebElement Result;
+    @FindBy(xpath = "//a[@class='next-dialog-close']")
+    WebElement kupon;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/div[2]/div[1]/span[3]/span[1]/label/span[1]/input")
-    WebElement Sale;
+    @FindBy(xpath = "//span[@class='next-breadcrumb-text activated']/span")
+    WebElement result;
 
-    @FindBy(xpath = "/html/body/div[2]/div/div/div[2]/div[2]/div/div[1]/div[2]/div[2]/div[1]/span/span[4]")
-    WebElement SortByCosts;
+    @FindBy(xpath = "//span[@class='feature-wrap']/span[1]/label/span/input")
+    WebElement freeDelivery;
+
+    @FindBy(xpath = "//span[@class='sort-by-wrapper']/span[4]")
+    WebElement sortByCosts;
 
     public SearchPage(){
         PageFactory.initElements(DriverWrapper.driver,this);
     }
 
-    @Step("Закрытие купона после поиска")
-    public void SkipKupon(){
-        CloseKupon.click();
 
+    @Step("Закрытие купона")
+    public void closeKupon(){
+        new WebDriverWait(DriverWrapper.driver,10).until(ExpectedConditions.elementToBeClickable(kupon));
+        kupon.click();
     }
+
     @Step("Сортировка")
-    public void setUpFilters()  {
-        while (!Sale.isEnabled()){
+    public void sortByCostWithFreeDelivery()  {
+        while (!freeDelivery.isEnabled()){
             DriverWrapper.driver.navigate().refresh();
         }
-        if(Sale.getAttribute("aria-checked").equals("false")){
-            Sale.click();
-            new WebDriverWait(DriverWrapper.driver,10).until(ExpectedConditions.elementToBeClickable(SortByCosts));
+        if(freeDelivery.getAttribute("aria-checked").equals("false")){
+            freeDelivery.click();
         }
-        while (SortByCosts.getAttribute("class").equals("sort-item") || !SortByCosts.getAttribute("ae_object_value").equals("price(highest)")){
-            SortByCosts.click();
-            WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,10);
-            wait.until(ExpectedConditions.attributeToBe(SortByCosts,"ae_object_value","price(highest)"));
+        while (sortByCosts.getAttribute("class").equals("sort-item") | !sortByCosts.getAttribute("ae_object_value").equals("price(highest)")){
+            WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
+            wait.until(ExpectedConditions.elementToBeSelected(freeDelivery));
+            sortByCosts.click();
+            wait.until(ExpectedConditions.elementToBeClickable(sortByCosts));
+            wait.until(ExpectedConditions.attributeToBe(sortByCosts,"ae_object_value","price(highest)"));
         }
 
     }
     @Step("Результаты в консоль")
     public String GetResults(){
-        String results = Result.getText();
-        if(Sale.getAttribute("aria-checked").equals("true")){
-            results += ", по акции";
+        String results = result.getText();
+        if(freeDelivery.getAttribute("aria-checked").equals("true")){
+            results += ", с бесплатной доставкой";
         }
-        if(SortByCosts.getAttribute("class").equals("sort-item active")){
+        if(sortByCosts.getAttribute("class").equals("sort-item active")){
             results += ", цены указаны по возрастанию.";
         }
         return results;

@@ -1,3 +1,4 @@
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,16 +11,17 @@ public class GeneralTest {
         driverWrapper.Init();
     }
 
-    @Test(invocationCount = 2)
-    void Test()  {
+    @Test(invocationCount = 1)
+    void Test() throws InterruptedException {
         MainPage mainPage = new MainPage();
         SearchPage searchPage = new SearchPage();
-        mainPage.Skip();
-        mainPage.SetUp();
+        mainPage.closeNotifiacationSuggestions();
+        mainPage.changeCountryLanguageCurrencySettings();
         mainPage.Find("клавиатура");
-        searchPage.SkipKupon();
+        searchPage.closeKupon();
         System.out.println(searchPage.GetResults());
-        searchPage.setUpFilters();
+        //Assert.assertTrue(searchPage.freeDelivery.isEnabled());
+        searchPage.sortByCostWithFreeDelivery();
         System.out.println(searchPage.GetResults());
 
     }
