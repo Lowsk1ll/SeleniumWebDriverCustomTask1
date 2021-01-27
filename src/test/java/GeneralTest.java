@@ -1,4 +1,3 @@
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -17,10 +16,10 @@ public class GeneralTest {
         SearchPage searchPage = new SearchPage();
         mainPage.closeNotifiacationSuggestions();
         mainPage.changeCountryLanguageCurrencySettings();
-        mainPage.Find("клавиатура");
+        mainPage.closeKupon();
+        mainPage.find("клавиатура");
         searchPage.closeKupon();
         System.out.println(searchPage.GetResults());
-        //Assert.assertTrue(searchPage.freeDelivery.isEnabled());
         searchPage.sortByCostWithFreeDelivery();
         System.out.println(searchPage.GetResults());
 

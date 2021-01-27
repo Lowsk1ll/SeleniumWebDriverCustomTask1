@@ -35,15 +35,24 @@ public class MainPage {
     WebElement saveButton;
 
     @FindBy(xpath = "//div/input[@name='SearchText']")
-    WebElement SearchString;
+    WebElement searchString;
 
     @FindBy(xpath = "//div/input[@type='submit']")
-    WebElement FindButton;
+    WebElement findButton;
+
+    @FindBy(xpath = "//img[@class='btn-close']")
+    WebElement skipKupon;
 
 
 
     public MainPage() {
         PageFactory.initElements(DriverWrapper.driver,this);
+    }
+    public void closeKupon(){
+        WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
+        wait.until(ExpectedConditions.elementToBeClickable(skipKupon));
+        skipKupon.click();
+
     }
     @Step("Закрытие предложения об уведомлениях")
     public void closeNotifiacationSuggestions(){
@@ -86,11 +95,11 @@ public class MainPage {
         wait.until(ExpectedConditions.elementToBeClickable(saveButton));
         saveButton.click();
     }
-    @Step
-    public void Find(String findWord){
+    @Step("Поиск по слову")
+    public void find(String findWord){
         WebDriverWait wait = new WebDriverWait(DriverWrapper.driver,5);
         wait.until(ExpectedConditions.invisibilityOf(saveButton));
-        SearchString.sendKeys(findWord);
-        FindButton.click();
+        searchString.sendKeys(findWord);
+        findButton.click();
     }
 }
