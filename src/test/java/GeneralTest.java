@@ -10,8 +10,8 @@ public class GeneralTest {
         driverWrapper.init();
     }
 
-    @Test(invocationCount = 1)
-    void Test() throws InterruptedException {
+    @Test
+    void Test()  {
         MainPage mainPage = new MainPage();
         SearchPage searchPage = new SearchPage();
         mainPage.closeNotifiacationSuggestions();
