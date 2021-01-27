@@ -49,7 +49,7 @@ public class SearchPage {
 
     }
     @Step("Результаты в консоль")
-    public String GetResults(){
+    public String getResults(){
         String results = result.getText();
         if(freeDelivery.getAttribute("aria-checked").equals("true")){
             results += ", с бесплатной доставкой";

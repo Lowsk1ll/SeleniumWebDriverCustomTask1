@@ -7,7 +7,7 @@ public class GeneralTest {
 
     @BeforeMethod
     void setUp(){
-        driverWrapper.Init();
+        driverWrapper.init();
     }
 
     @Test(invocationCount = 1)
@@ -19,13 +19,13 @@ public class GeneralTest {
         mainPage.closeKupon();
         mainPage.find("клавиатура");
         searchPage.closeKupon();
-        System.out.println(searchPage.GetResults());
+        System.out.println(searchPage.getResults());
         searchPage.sortByCostWithFreeDelivery();
-        System.out.println(searchPage.GetResults());
+        System.out.println(searchPage.getResults());
 
     }
     @AfterMethod
     void end(){
-        driverWrapper.Close();
+        driverWrapper.close();
     }
 }
